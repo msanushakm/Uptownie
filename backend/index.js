@@ -16,7 +16,9 @@ app.use(express.json())
 app.use(cors())
 app.use('/upload', express.static('upload'))
 
-mongoose.connect("mongodb://127.0.0.1:27017/uptownie");
+mongoose.connect(process.env.MONGODB_URI)
+.then(()=>console.log("Connecetd to MongoDB Atlas"))
+.catch(err=>console.log(err));
 
 app.post('/login',(req,res)=>{
     const {email,password}=req.body;
