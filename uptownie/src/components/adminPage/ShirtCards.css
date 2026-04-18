@@ -1,0 +1,44 @@
+.productContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 52px;
+    padding: 20px;
+    background-color: rgb(246, 246, 244);
+    width: fit-content;
+}
+
+.cardd{
+    width: 200px;
+}
+
+.cardd img{
+    width: 200px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.cardd h3{
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.cardd p{
+    font-size: 14px;
+}
+
+.cardd h4{
+    font-size: 16px;
+}
+
+#searchdiv{
+  position: relative;
+  display: flex;
+  margin-top: 15px;
+  margin-left: 70%;
+  margin-bottom: 15px;
+}
+.search-icon{
+  position: absolute;
+  margin-left: 280px;
+  margin-top: 6px;
+}

@@ -1,0 +1,25 @@
+#div1{
+    background-color: black;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+#div1 a{
+    color: white;
+}
+#div3{
+    background-color: black;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+#div3 a{
+    padding-right: 100px;
+    color: white;
+    text-decoration: none;
+}
+#div3 ul{
+    display: flex;
+}

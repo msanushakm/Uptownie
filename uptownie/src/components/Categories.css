@@ -1,0 +1,50 @@
+.mainImageContainer{
+    display: flex;
+    width: 100vw;
+}
+.subImage{
+    width:24.3%;
+    margin: 2px;
+    position: relative;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 400%;
+}
+.subImage img{
+    width: 100%;
+    height: auto; 
+    display: block;
+    border-radius: 5%;
+}
+.bottom-center{
+    position: absolute;
+    left: 25%;
+    bottom: 20px;
+}
+.winter-wear{
+    position: absolute;
+    left: 8%;
+    bottom: 20px;
+}
+.swim{
+    position: absolute;
+    left: 30%;
+    bottom: 20px; 
+}
+.skirt{
+    position: absolute;
+    left: 32%;
+    bottom: 20px;  
+}
+.tops{
+    position: absolute;
+    left: 32%;
+    bottom: 20px;
+}
+.loved{
+    position: absolute;
+    left: 8%;
+    bottom: 20px;
+}
+

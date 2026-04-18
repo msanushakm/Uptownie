@@ -1,0 +1,30 @@
+.story{
+    text-align: center;
+    margin: 12px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+}
+.align-center{
+    text-align: center;
+}
+.top-margin{
+    margin-top: 40px;
+}
+.founder-img img{
+    display: block;
+    margin: auto;
+    width: 30%;
+    height: 30%;
+    margin-top: 3%;
+}
+.founder-detail h1{
+    margin-left: 15%;
+}
+.staybombdiggity{
+    background-color: rgb(249, 91, 117);
+    text-align: right;
+    width: 80%;
+    margin: auto;
+}
+.staybombdiggity h2{
+    margin-right: 20px;
+}

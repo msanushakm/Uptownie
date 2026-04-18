@@ -1,0 +1,21 @@
+.table-border{
+    border:solid black 2px;
+    width: 95%;
+}
+.buttonss{
+    width:50px;
+    height: 40px;
+    border-radius: 20%;
+}
+.tb-div{
+    margin-left: 5%;
+    
+}
+.items-center{
+    text-align: center;
+}
+.tb-img{
+    object-fit: cover;
+    height: 60px;
+    width: 50px;
+}

@@ -1,0 +1,27 @@
+.manage-orders table{
+    border: 2px solid black;
+    width: 95%;
+    text-align: center;
+    justify-self: center;
+}
+.manage-orders h1{
+    text-align: center;
+}
+.action-btn{
+    width: 80px;
+    height: 30px;
+    margin: 5px;
+    background-color: rgb(141, 141, 240);
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+.action-btn-remove{
+    width: 80px;
+    height: 30px;
+    margin: 5px;
+    background-color: rgb(244, 89, 89);
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}

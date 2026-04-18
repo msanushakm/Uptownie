@@ -1,0 +1,30 @@
+.mainFooter{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(144, 140, 140);  
+} 
+.subFooter{
+    flex: 1;
+    margin-left: 10%;
+    margin-bottom: 1%;
+}
+
+.subFooter p{
+    color: rgb(248, 243, 243);
+    text-decoration: none;
+    font-size: medium;
+}
+
+.subFooter p:hover{
+    color: black;
+}
+
+.nav-link{
+    text-decoration: none;
+}
+
+.div-iconlink{
+    display: flex;
+    gap: 10%;
+}

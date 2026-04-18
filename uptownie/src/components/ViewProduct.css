@@ -1,0 +1,17 @@
+.view-container {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.view-img {
+  width: 200px;
+  border-radius: 10px;
+  margin: 5px 0;
+  }
+
+.back-btn {
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  cursor: pointer;
+}

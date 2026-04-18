@@ -1,0 +1,96 @@
+import { useState,useEffect } from "react";
+import { useParams,useNavigate } from "react-router-dom";
+import axios from "axios";
+function UpdateProduct(){
+    const {id}=useParams();
+    const[product, setProduct]=useState({
+        name:"",
+        price:"",
+        description:"",
+        image:null,
+    });
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        axios.get('http://localhost:3001/products/'+id)
+        .then(result => {
+            setProduct(result.data);
+        })
+        .catch((err)=>console.log(err))
+    
+    },[id]);
+
+    const handleChange=async(e)=>{
+        setProduct({...product,[e.target.name]:e.target.value});
+    }
+
+    const handleImage=async(e)=>{
+        setProduct({...product,image:e.target.files[0]});
+    }
+
+    const handleUpdate=async(e)=>{
+            e.preventDefault()
+            const formData = new FormData()
+            formData.append("name", product.name)
+            formData.append("price", product.price)
+            formData.append("description", product.description)
+            formData.append("image", product.image)
+
+            try {
+                await axios.put("http://localhost:3001/updateProduct/"+id, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+                });
+
+                alert("Product updated successfully");
+                navigate("/manageProduct");
+            } catch (error) {
+                console.log(error);
+            }
+            }
+    return(
+        <>
+        <h1>Edit Product</h1> 
+        <div className='alignment'>
+        <form onSubmit={handleUpdate}>
+                <input type="text" 
+                name="name" 
+                id="name" 
+                className='btninput'
+                value={product.name}
+                onChange={handleChange}/><br/><br/>
+
+                <input 
+                type="text" 
+                name="price" 
+                id="price" 
+                className='btninput'
+                value={product.price}
+                onChange={handleChange}/><br/><br/>
+
+                <input 
+                type="text" 
+                name="description" 
+                id="description" 
+                className='btninput'
+                value={product.description}
+                onChange={handleChange}/><br/>
+
+                <p>'Below upload the product image'</p>
+                <input 
+                type="file" 
+                accept='image/*'
+                name="image" 
+                id="image"  
+                className='btninput' 
+                onChange={handleImage}/><br/><br/>
+                
+                <input 
+                type="submit" 
+                value="Edit Product" 
+                className='btnsubmit'/>
+        </form>
+        </div>
+        </>
+    )
+}
+export default UpdateProduct;

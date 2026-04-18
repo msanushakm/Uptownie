@@ -1,0 +1,42 @@
+#div1{
+    margin-left: 80px;
+    padding-top: 1px;
+    }
+
+#div2{
+    margin-left: 60px;
+    margin-right: 80px;
+    }
+
+input[type="submit"]{
+    background-color: black;
+    color: white;
+    width: 220px;
+    height: 40px;
+    border-radius: 5px;
+    }
+
+#reg{
+    background-color: black;
+    color: white;
+    width: 170px;
+    height: 40px;
+    border-radius: 5px; 
+    }
+
+a{
+    color: black;
+    }
+    
+.mainn{
+    display: flex;
+    background-color: rgb(246, 246, 246);
+    max-width: fit-content;
+    margin: auto;
+    height: 270px;
+    }
+
+.inputss{
+    width: 220px;
+    height: 30px;
+}

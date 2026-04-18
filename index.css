@@ -1,0 +1,31 @@
+#div1{
+                margin-left: 80px;
+                padding-top: 1px;
+            }
+            #div2{
+                margin-left: 30px;
+                margin-right: 80px;
+            }
+            input[type="submit"]{
+                background-color: black;
+                color: white;
+                width: 220px;
+                height: 40px;
+                border-radius: 5px;
+            }
+            #reg{
+               background-color: black;
+                color: white;
+                width: 170px;
+                height: 40px;
+                border-radius: 5px; 
+            }
+            a{
+                color: black;
+            }
+            .main{
+                background-color: white;
+                max-width: fit-content;
+                align-items: center;
+                display: flex;
+            }

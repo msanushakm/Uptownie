@@ -1,0 +1,31 @@
+.detailsContainer{
+  max-width: 800px;
+  margin: 50px auto;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px; 
+}
+.subbcontainer button{
+  padding: 12px 25px;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.sizeContainer {
+  margin: 10px 0;
+}
+
+.sizeContainer select {
+  width: 60px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 1px solid #070707;
+}
+.sizeContainer label{
+    font-weight: bold;
+}
+

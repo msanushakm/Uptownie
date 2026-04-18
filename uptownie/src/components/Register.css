@@ -1,0 +1,24 @@
+.container{
+    max-width: fit-content;
+    margin: auto;
+}
+
+#loginbtn{
+    background-color: rgb(247, 247, 247);
+    color: rgb(13, 13, 13);
+    width: 350px;
+    height: 40px;
+    border-radius: 5px; 
+}
+#regbtn{
+    width: 350px;
+}
+
+.inputs{
+    width: 330px;
+    height: 30px;
+}
+
+#mainContainer{
+    display: block;
+}

@@ -1,0 +1,26 @@
+.profile-btn button {
+  padding: 4px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  
+
+}
+
+.profile-btn button:hover {
+  background-color: #333;
+  border-color: #333;
+}
+.profile-box{
+    text-align: center;
+    margin-top: 5%;
+}
+.profile-btn{
+    display: flex;
+    gap: 50px;
+    margin-top: 5%;
+    justify-content: center;
+    align-items: center;
+}
