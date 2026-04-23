@@ -12,7 +12,7 @@ function Payment() {
             return;
         }
 
-        const res = await axios.post("http://localhost:3001/create-order", {
+        const res = await axios.post("https://uptownie.onrender.com/create-order", {
             amount: order.total
         });
 
@@ -24,7 +24,7 @@ function Payment() {
             order_id: res.data.id,
 
             handler: async function (response) {
-                const verifyRes = await axios.post("http://localhost:3001/verify-payment", {
+                const verifyRes = await axios.post("https://uptownie.onrender.com/verify-payment", {
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_signature: response.razorpay_signature
