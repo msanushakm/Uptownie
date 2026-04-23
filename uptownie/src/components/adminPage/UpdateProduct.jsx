@@ -12,7 +12,7 @@ function UpdateProduct(){
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get('http://localhost:3001/products/'+id)
+        axios.get('https://uptownie.onrender.com/products/'+id)
         .then(result => {
             setProduct(result.data);
         })
@@ -37,7 +37,7 @@ function UpdateProduct(){
             formData.append("image", product.image)
 
             try {
-                await axios.put("http://localhost:3001/updateProduct/"+id, formData, {
+                await axios.put("https://uptownie.onrender.com/updateProduct/"+id, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 });
 
