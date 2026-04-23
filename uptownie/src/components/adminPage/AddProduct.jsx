@@ -22,7 +22,7 @@ function AddProduct(){
     formData.append("category", category)
     formData.append("image",image)
 
-    axios.post("http://localhost:3001/addProduct",formData)
+    axios.post("https://uptownie.onrender.com/addProduct",formData)
     .then(res=>{
     console.log(res)
     alert("Product Added Successfully")
