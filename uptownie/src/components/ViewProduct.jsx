@@ -9,7 +9,7 @@ function ViewProduct() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/viewProduct/${id}`)
+    axios.get(`https://uptownie.onrender.com/viewProduct/${id}`)
       .then(res => setProduct(res.data))
       .catch(err => console.log(err));
   }, [id]);
@@ -21,7 +21,7 @@ function ViewProduct() {
       <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
       <h1>{product.name}</h1>
       <img
-        src={`http://localhost:3001/upload/${product.image}`}
+        src={`https://uptownie.onrender.com/upload/${product.image}`}
         alt={product.name} className="view-img"/>
       <h2>₹{product.price}</h2>
       <p>{product.description}</p>  
