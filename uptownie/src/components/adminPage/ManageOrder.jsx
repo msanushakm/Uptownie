@@ -5,14 +5,14 @@ function ManageOrder(){
     const [orders,setOrders]=useState([])
 
     useEffect(()=>{
-        axios.get('http://localhost:3001/orders')
+        axios.get('https://uptownie.onrender.com/orders')
         .then(result => setOrders(result.data))
         .catch(err=>console.log(err))
     
     },[])
 
     const handleActionRemove=(id)=>{
-        axios.delete('http://localhost:3001/deleteOrders/'+id)
+        axios.delete('https://uptownie.onrender.com/deleteOrders/'+id)
         .then(res=>{console.log(res)
             window.location.reload()
         })
@@ -21,7 +21,7 @@ function ManageOrder(){
 
     const handleStatusUpdate = async (orderId, newStatus) => {
         try {
-            const res = await axios.put(`http://localhost:3001/orders/${orderId}`, { status: newStatus });
+            const res = await axios.put(`https://uptownie.onrender.com/orders/${orderId}`, { status: newStatus });
             setOrders(prev =>
                 prev.map(order => order._id === orderId ? { ...order, status: res.data.status } : order)
             );
