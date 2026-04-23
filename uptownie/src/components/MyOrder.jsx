@@ -7,7 +7,7 @@ function MyOrders(){
     const navigate = useNavigate();
     useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    axios.get(`http://localhost:3001/orders/${user.email}`)
+    axios.get(`https://uptownie.onrender.com/orders/${user.email}`)
         .then(result => {
             setOrders(result.data);
         })
