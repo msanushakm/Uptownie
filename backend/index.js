@@ -1,7 +1,7 @@
 require("dotenv").config();
+const cors=require('cors')
 const express=require("express")
 const mongoose=require('mongoose')
-const cors=require('cors')
 const multer=require('multer')
 const path = require("path");
 const fs=require('fs')
@@ -12,8 +12,12 @@ const sendEmail = require("./utils/sendEmail");
 const Razorpay = require("razorpay");
 
 const app=express()
+app.use(cors({
+  origin: "https://uptownie-frontend.onrender.com",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json())
-app.use(cors())
 app.use('/upload', express.static('upload'))
 
 mongoose.connect(process.env.MONGODB_URI)
