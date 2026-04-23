@@ -10,7 +10,7 @@ function Password() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:3001/forgot-password", { email })
+    axios.post("https://uptownie.onrender.com/forgot-password", { email })
       .then(res => {
         if (res.data.status === "success") {
           navigate(`/reset-password/${email}`);
