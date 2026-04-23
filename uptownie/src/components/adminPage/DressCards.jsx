@@ -10,7 +10,7 @@ function DressCards(){
     const navigate=useNavigate()
 
     useEffect(()=>{
-    axios.get("http://localhost:3001/products/category/dress")
+    axios.get("https://uptownie.onrender.com/products/category/dress")
     .then(res=>{
     setProducts(res.data)
     })
@@ -21,11 +21,11 @@ function DressCards(){
         const value=e.target.value;
         setSearchKey(value)
         if (value===""){
-            axios.get("http://localhost:3001/products/category/dress")
+            axios.get("https://uptownie.onrender.com/products/category/dress")
             .then(res => setProducts(res.data))
         }else{
             try {
-                const res=await axios.get("http://localhost:3001/products/search/dress/"+value)
+                const res=await axios.get("https://uptownie.onrender.com/products/search/dress/"+value)
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)
@@ -48,7 +48,7 @@ function DressCards(){
         <div className="productContainer">
         {products.map((product)=>(        
         <div className="cardd" onClick={() => {navigate(`/productDetails/${product._id}`)}} style={{cursor:"pointer"}}>
-            <img src={`http://localhost:3001/upload/${product.image}`}/>
+            <img src={`https://uptownie.onrender.com/upload/${product.image}`}/>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <h4>₹{product.price}</h4>
