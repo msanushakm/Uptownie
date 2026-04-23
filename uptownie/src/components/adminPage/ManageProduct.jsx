@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 function ManageProduct(){
     const [products,setProducts]=useState([])
     useEffect(()=>{
-        axios.get('http://localhost:3001/products')
+        axios.get('https://uptownie.onrender.com/products')
         .then(result => setProducts(result.data))
         .catch(err=>console.log(err))
     
     },[])
     
     const deleteProduct=(id)=>{
-        axios.delete('http://localhost:3001/deleteProduct/'+id)
+        axios.delete('https://uptownie.onrender.com/deleteProduct/'+id)
         .then(res=>{console.log(res)
             window.location.reload()
         })
@@ -41,7 +41,7 @@ function ManageProduct(){
                         <td className='items-center'>{products.price}</td>
                         <td className='items-center'>{products.description}</td>
                         <td className='items-center'>{products.category}</td>
-                        <td className='items-center'><img className='tb-img' src={`http://localhost:3001/upload/${products.image}`}/></td>
+                        <td className='items-center'><img className='tb-img' src={`https://uptownie.onrender.com/upload/${products.image}`}/></td>
                         <td className='items-center'><Link to={`/updateProduct/${products._id}`}><button className="buttonss">Edit</button></Link></td>
                         <td className='items-center'><button className="buttonss" onClick={(e)=>deleteProduct(products._id)}>Delete</button></td>
                     </tr>
