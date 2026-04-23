@@ -10,7 +10,7 @@ function TwoJeansCards(){
     const navigate=useNavigate()
 
     useEffect(()=>{
-    axios.get("http://localhost:3001/products/category/two@999")
+    axios.get("https://uptownie.onrender.com/products/category/two@999")
     .then(res=>{
     setProducts(res.data)
     })
@@ -21,11 +21,11 @@ function TwoJeansCards(){
         const value=e.target.value;
         setSearchKey(value)
         if (value===""){
-            axios.get("http://localhost:3001/products/category/two@999")
+            axios.get("https://uptownie.onrender.com/products/category/two@999")
             .then(res => setProducts(res.data))
         }else{
             try {
-                const res=await axios.get("http://localhost:3001/products/search/two@999/"+value)
+                const res=await axios.get("https://uptownie.onrender.com/products/search/two@999/"+value)
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)
@@ -48,7 +48,7 @@ function TwoJeansCards(){
         <div className="productContainer">
         {products.map((product)=>(        
         <div className="cardd" onClick={() => {navigate(`/productDetails/${product._id}`)}} style={{cursor:"pointer"}}>
-            <img src={`http://localhost:3001/upload/${product.image}`}/>
+            <img src={`https://uptownie.onrender.com/upload/${product.image}`}/>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <h4>₹{product.price}</h4>
