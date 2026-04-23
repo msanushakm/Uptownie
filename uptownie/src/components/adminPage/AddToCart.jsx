@@ -9,7 +9,7 @@ function AddToCart({cartData}){
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem(`cart_${user?.email}`) || "[]");
 
-        axios.get("http://localhost:3001/products")
+        axios.get("https://uptownie.onrender.com/products")
             .then(res => {
             const updatedCart = cartData.map(item => {
                 const product = res.data.find(p => p._id === item.productId);
@@ -48,7 +48,7 @@ function AddToCart({cartData}){
                 {cart.map((item,index)=>(
                     <div key={index} className="cart_card">
                     <img 
-                        src={`http://localhost:3001/upload/${item.image}`} 
+                        src={`https://uptownie.onrender.com/upload/${item.image}`} 
                         className="cart_img"/>
                     <div className="cart_details">
                         <h3>{item.name}</h3>
