@@ -11,7 +11,7 @@ function Checkout(){
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem(`cart_${user?.email}`) || "[]");
 
-        axios.get("http://localhost:3001/products")
+        axios.get("https://uptownie.onrender.com/products")
             .then(res => {
                 const updatedCart = cartData.map(item => {
                     const product = res.data.find(p => p._id === item.productId);
@@ -58,7 +58,7 @@ function Checkout(){
 
         if (payment === "COD") {
             try {
-                const response = await axios.post("http://localhost:3001/orders", order);
+                const response = await axios.post("https://uptownie.onrender.com/orders", order);
                 localStorage.removeItem(`cart_${user.email}`);
                 alert("Order placed successfully!");
                 window.location.href = "/";
