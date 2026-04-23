@@ -11,7 +11,7 @@ function ProductDetails(){
     const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        axios.get('http://localhost:3001/products/'+id)
+        axios.get('https://uptownie.onrender.com/products/'+id)
         .then(result => {
             setProduct(result.data);
         })
@@ -39,7 +39,7 @@ function ProductDetails(){
     return(
         <>
         <div className="detailsContainer">
-        <img src={`http://localhost:3001/upload/${product?.image}`} />
+        <img src={`https://uptownie.onrender.com/upload/${product?.image}`} />
         <div className="subbcontainer">
         <h2>{product?.name}</h2>
         <p>{product?.description}</p>
