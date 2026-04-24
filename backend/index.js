@@ -14,10 +14,12 @@ const Razorpay = require("razorpay");
 const app=express()
 app.use(cors({
   origin: "https://uptownie-frontend.onrender.com",
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
+
 app.use(express.json())
+
 app.use('/upload', express.static('upload'))
 
 mongoose.connect(process.env.MONGODB_URI)
