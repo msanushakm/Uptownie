@@ -34,7 +34,7 @@ function Payment() {
                     order.status = "Confirmed";
                     order.payment = "Online";
 
-                    await axios.post("http://localhost:3001/orders", order);
+                    await axios.post("https://uptownie.onrender.com/orders", order);
 
                     localStorage.removeItem("pendingOrder");
                     localStorage.removeItem(`cart_${user.email}`);
