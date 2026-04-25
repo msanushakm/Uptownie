@@ -18,6 +18,21 @@ const allowedOrigins = [
   "https://uptownie-frontend.onrender.com"
 ];
 
+const {v2:cloudinary}=require("cloudinary");
+const {CloudinaryStorage}=require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET,
+});
+const storage=new CloudinaryStorage({
+  cloudinary:cloudinary,
+  params:{
+    folder:"products",
+  },
+});
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -31,8 +46,6 @@ app.use(cors({
 }));
 
 app.use(express.json())
-
-app.use('/upload', express.static('upload'))
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(()=>console.log("Connecetd to MongoDB Atlas"))
@@ -68,16 +81,7 @@ app.post('/register',(req,res)=>{
     .catch(err=>res.json(err))
 })
 
-const storage = multer.diskStorage({
- destination: function(req,file,cb){
-  cb(null,'upload/')
- },
- filename: function(req,file,cb){
-  cb(null, Date.now()+path.extname(file.originalname))
- }
-})
-
-const upload = multer({storage:storage})
+const upload = multer({ storage });
 
 app.post("/addProduct", upload.single("image"), async(req,res)=>{
 
@@ -86,7 +90,7 @@ app.post("/addProduct", upload.single("image"), async(req,res)=>{
    price:req.body.price,
    description:req.body.description,
    category: req.body.category,
-   image:req.file.filename
+   image:req.file.path
  })
 
  await product.save()
@@ -135,7 +139,7 @@ app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
         const updateData={name,price,description};
 
         if(req.file){
-            updateData.image=`${req.file.filename}`;
+            updateData.image=req.file.path;
         }
         const updated=await Product.findByIdAndUpdate(req.params.id,updateData,{
             new:true,
