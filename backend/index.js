@@ -10,10 +10,22 @@ const Product = require("./models/product")
 const Order = require("./models/order")
 const sendEmail = require("./utils/sendEmail");
 const Razorpay = require("razorpay");
+const PDFDocument = require("pdfkit");
 
 const app=express()
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://uptownie-frontend.onrender.com"
+];
+
 app.use(cors({
-  origin: "https://uptownie-frontend.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true
 }));
@@ -136,41 +148,100 @@ app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
 })
 
 app.post("/orders", async (req, res) => {
-    try {
-        const newOrder = new Order(req.body);
-        await newOrder.save();
-        const productDetails = await Promise.all(
-            req.body.cart.map(async (item) => {
-                const product = await Product.findById(item.productId);
-                return {
-                    name: product.name,
-                    quantity: item.quantity
-                };
-            })
-        );
-        await sendEmail(
-            req.body.address.email,
-            "Order Placed",
-            `
-            <h2>Order Confirmed.</h2>
-            <p><b>Order ID:</b> ${newOrder._id}</p>
+  try {
+    const newOrder = new Order(req.body);
+    await newOrder.save();
 
-            <h3>Products:</h3>
-            <ul>
-                ${productDetails.map(item => `
-                    <li>${item.name} (Qty: ${item.quantity})</li>
-                `).join("")}
-            </ul>
+    const productDetails = await Promise.all(
+      req.body.cart.map(async (item) => {
+        const product = await Product.findById(item.productId);
+        return {
+          name: product.name,
+          quantity: item.quantity
+        };
+      })
+    );
 
-            <p><b>Total:</b> ₹${req.body.total}</p>
-            <p><b>Payment:</b> ${req.body.payment}</p>
-            `
-        );
-        res.status(201).json({ message: "Order saved successfully" });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Failed to save order" });
+    const doc = new PDFDocument({ margin: 50 });
+    const filePath = path.join(__dirname, `invoice_${newOrder._id}.pdf`);
+    const stream = fs.createWriteStream(filePath);
+
+    doc.pipe(stream);
+
+    doc.fontSize(22).text("INVOICE", { align: "center" });
+    doc.moveDown();
+
+    doc.fontSize(12).text(`Order ID: ${newOrder._id}`);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`);
+    doc.moveDown();
+
+    doc.text(`Name: ${req.body.address.name}`);
+    doc.text(`Email: ${req.body.address.email}`);
+    doc.moveDown();
+
+    doc.fontSize(14).text("Product Details", { underline: true });
+    doc.moveDown();
+
+    let subtotal = 0;
+
+    for (const item of req.body.cart) {
+    const product = await Product.findById(item.productId);
+
+    const price = product.price;
+    const qty = item.quantity;
+    const total = price * qty;
+
+    subtotal += total;
+
+    doc.fontSize(12).text(
+        `${product.name} | Qty: ${qty} | Price: ₹${price} | Total: ₹${total}`
+    );
     }
+
+    const gst = subtotal * 0.18; 
+    const extraTax = req.body.tax || 0; 
+    const discount = req.body.discount || 0;
+
+    const finalTotal = subtotal + gst + extraTax - discount;
+
+    doc.moveDown();
+    doc.text(`Subtotal: ₹${subtotal}`);
+    doc.text(`GST (18%): ₹${gst.toFixed(2)}`);
+
+    if (extraTax > 0) {
+    doc.text(`Other Tax: ₹${extraTax}`);
+    }
+
+    if (discount > 0) {
+    doc.text(`Discount: -₹${discount}`);
+    }
+
+    doc.fontSize(14).text(`Total: ₹${finalTotal.toFixed(2)}`, {
+    underline: true,
+    });
+
+    doc.moveDown();
+    doc.fontSize(12).text("Thank you for shopping with us!", {
+    align: "center",
+    });
+
+    doc.end();
+
+    stream.on("finish", async () => {
+      await sendEmail(
+        req.body.address.email,
+        "Order Placed",
+        `<h2>Your order is confirmed!</h2>`,
+        filePath 
+      );
+
+      res.status(201).json({ message: "Order + invoice sent" });
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to save order" });
+  }
 });
 
 app.get("/orders", async(req,res)=>{

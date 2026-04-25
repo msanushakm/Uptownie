@@ -6,11 +6,14 @@ import axios from "axios";
 function Password() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-
+  const BASE_URL =
+  window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("https://uptownie.onrender.com/forgot-password", { email })
+    axios.post(`${BASE_URL}/forgot-password`, { email })
       .then(res => {
         if (res.data.status === "success") {
           navigate(`/reset-password/${email}`);

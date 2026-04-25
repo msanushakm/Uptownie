@@ -6,10 +6,14 @@ import { Link } from "react-router-dom";
 function AddToCart({cartData}){
     const [cart,setCart]=useState([])
     const user = JSON.parse(localStorage.getItem("user"));
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem(`cart_${user?.email}`) || "[]");
 
-        axios.get("https://uptownie.onrender.com/products")
+        axios.get(`${BASE_URL}/products`)
             .then(res => {
             const updatedCart = cartData.map(item => {
                 const product = res.data.find(p => p._id === item.productId);
@@ -48,7 +52,7 @@ function AddToCart({cartData}){
                 {cart.map((item,index)=>(
                     <div key={index} className="cart_card">
                     <img 
-                        src={`https://uptownie.onrender.com/upload/${item.image}`} 
+                        src={`${BASE_URL}/upload/${item.image}`} 
                         className="cart_img"/>
                     <div className="cart_details">
                         <h3>{item.name}</h3>

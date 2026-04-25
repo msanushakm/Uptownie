@@ -10,7 +10,10 @@ function AddProduct(){
     const [category, setCategory] = useState("");
     const[image,setImage]=useState(null);
     const navigate = useNavigate();
-
+    const BASE_URL =
+  window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     const handleSubmit=(e)=>{
     e.preventDefault()
 
@@ -22,7 +25,7 @@ function AddProduct(){
     formData.append("category", category)
     formData.append("image",image)
 
-    axios.post("https://uptownie.onrender.com/addProduct",formData)
+    axios.post(`${BASE_URL}/addProduct`,formData)
     .then(res=>{
     console.log(res)
     alert("Product Added Successfully")

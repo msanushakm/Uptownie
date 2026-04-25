@@ -9,9 +9,12 @@ function ProductDetails(){
     const [selectedSize, setSelectedSize] = useState("M")
     const [selectqnty,setSelectedQnty]=useState(1)
     const user = JSON.parse(localStorage.getItem("user"));
-
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     useEffect(() => {
-        axios.get('https://uptownie.onrender.com/products/'+id)
+        axios.get(`${BASE_URL}/products/${id}`)
         .then(result => {
             setProduct(result.data);
         })
@@ -39,7 +42,7 @@ function ProductDetails(){
     return(
         <>
         <div className="detailsContainer">
-        <img src={`https://uptownie.onrender.com/upload/${product?.image}`} />
+        <img src={`${BASE_URL}/upload/${product?.image}`} />
         <div className="subbcontainer">
         <h2>{product?.name}</h2>
         <p>{product?.description}</p>

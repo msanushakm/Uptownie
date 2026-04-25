@@ -6,11 +6,14 @@ function ResetPassword() {
   const { email } = useParams();
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const BASE_URL =
+  window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post("https://uptownie.onrender.com/reset-password", {
+    axios.post(`${BASE_URL}/reset-password`, {
       email,
       password
     })

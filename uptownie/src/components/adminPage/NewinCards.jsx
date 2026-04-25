@@ -8,9 +8,12 @@ function NewinCards(){
     const [products, setProducts] = useState([])
     const [searchKey,setSearchKey]=useState("")
     const navigate=useNavigate()
-
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     useEffect(()=>{
-    axios.get("https://uptownie.onrender.com/products/category/new_in")
+    axios.get(`${BASE_URL}/products/category/new_in`)
     .then(res=>{
     setProducts(res.data)
     })
@@ -21,11 +24,11 @@ function NewinCards(){
         const value=e.target.value;
         setSearchKey(value)
         if (value===""){
-            axios.get("https://uptownie.onrender.com/products/category/new_in")
+            axios.get(`${BASE_URL}/products/category/new_in`)
             .then(res => setProducts(res.data))
         }else{
             try {
-                const res=await axios.get("https://uptownie.onrender.com/products/search/new_in/"+value)
+                const res=await axios.get(`${BASE_URL}/products/search/new_in/${value}`)
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)
@@ -48,7 +51,7 @@ function NewinCards(){
         <div className="productContainer">
         {products.map((product)=>(        
         <div className="cardd" onClick={() => {navigate(`/productDetails/${product._id}`)}} style={{cursor:"pointer"}}>
-            <img src={`https://uptownie.onrender.com/upload/${product.image}`}/>
+            <img src={`${BASE_URL}/upload/${product.image}`}/>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <h4>₹{product.price}</h4>

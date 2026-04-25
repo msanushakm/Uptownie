@@ -7,10 +7,14 @@ function Login(){
     const[email, setEmail]=useState();
     const[password, setPassword]=useState();
     const navigate = useNavigate();
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
 
     const handleSubmit=(e)=>{
         e.preventDefault()
-        axios.post('https://uptownie.onrender.com/login',{email,password})
+        axios.post(`${BASE_URL}/login`,{email,password})
         .then(result=>{
           console.log(result)
           if(result.data.status==="success"){

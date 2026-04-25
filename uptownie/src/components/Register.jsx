@@ -8,10 +8,13 @@ function Register(){
     const[secondName, setSecondName]=useState();
     const[email, setEmail]=useState();
     const[password, setPassword]=useState();
-
+    const BASE_URL =
+  window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     const handleSubmit=(e)=>{
         e.preventDefault()
-        axios.post('https://uptownie.onrender.com/register',{firstName,secondName,email,password})
+        axios.post(`${BASE_URL}/register`,{firstName,secondName,email,password})
         .then(result=>console.log(result))
         .catch(err=>console.log(err))
     }

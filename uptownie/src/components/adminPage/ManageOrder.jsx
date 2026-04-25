@@ -3,16 +3,19 @@ import { useState,useEffect } from 'react'
 import axios from 'axios'
 function ManageOrder(){
     const [orders,setOrders]=useState([])
-
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     useEffect(()=>{
-        axios.get('https://uptownie.onrender.com/orders')
+        axios.get(`${BASE_URL}/orders`)
         .then(result => setOrders(result.data))
         .catch(err=>console.log(err))
     
     },[])
 
     const handleActionRemove=(id)=>{
-        axios.delete('https://uptownie.onrender.com/deleteOrders/'+id)
+        axios.delete(`${BASE_URL}/deleteOrders/${id}`)
         .then(res=>{console.log(res)
             window.location.reload()
         })
@@ -21,7 +24,7 @@ function ManageOrder(){
 
     const handleStatusUpdate = async (orderId, newStatus) => {
         try {
-            const res = await axios.put(`https://uptownie.onrender.com/orders/${orderId}`, { status: newStatus });
+            const res = await axios.put(`${BASE_URL}/orders/${orderId}`, { status: newStatus });
             setOrders(prev =>
                 prev.map(order => order._id === orderId ? { ...order, status: res.data.status } : order)
             );

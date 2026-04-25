@@ -10,9 +10,12 @@ function UpdateProduct(){
         image:null,
     });
     const navigate = useNavigate();
-
+    const BASE_URL =
+        window.location.hostname === "localhost"
+        ? "http://localhost:3001"
+        : "https://uptownie.onrender.com";
     useEffect(()=>{
-        axios.get('https://uptownie.onrender.com/products/'+id)
+        axios.get(`${BASE_URL}/products/${id}`)
         .then(result => {
             setProduct(result.data);
         })
@@ -37,7 +40,7 @@ function UpdateProduct(){
             formData.append("image", product.image)
 
             try {
-                await axios.put("https://uptownie.onrender.com/updateProduct/"+id, formData, {
+                await axios.put(`${BASE_URL}/updateProduct/${id}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 });
 

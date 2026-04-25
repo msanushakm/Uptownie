@@ -5,9 +5,14 @@ import { Link,useNavigate} from "react-router-dom";
 function MyOrders(){
     const [orders,setOrders]=useState([])
     const navigate = useNavigate();
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
+      
     useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    axios.get(`https://uptownie.onrender.com/orders/${user.email}`)
+    axios.get(`${BASE_URL}/orders/${user.email}`)
         .then(result => {
             setOrders(result.data);
         })

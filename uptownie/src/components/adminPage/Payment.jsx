@@ -3,7 +3,10 @@ import axios from "axios";
 
 function Payment() {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    const BASE_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:3001"
+      : "https://uptownie.onrender.com";
     const handlePayment = async () => {
         const order = JSON.parse(localStorage.getItem("pendingOrder"));
 
@@ -12,7 +15,7 @@ function Payment() {
             return;
         }
 
-        const res = await axios.post("https://uptownie.onrender.com/create-order", {
+        const res = await axios.post(`${BASE_URL}/create-order`, {
             amount: order.total
         });
 
@@ -24,7 +27,7 @@ function Payment() {
             order_id: res.data.id,
 
             handler: async function (response) {
-                const verifyRes = await axios.post("https://uptownie.onrender.com/verify-payment", {
+                const verifyRes = await axios.post(`${BASE_URL}/verify-payment`, {
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_signature: response.razorpay_signature
@@ -34,7 +37,7 @@ function Payment() {
                     order.status = "Confirmed";
                     order.payment = "Online";
 
-                    await axios.post("https://uptownie.onrender.com/orders", order);
+                    await axios.post(`${BASE_URL}/orders`, order);
 
                     localStorage.removeItem("pendingOrder");
                     localStorage.removeItem(`cart_${user.email}`);
