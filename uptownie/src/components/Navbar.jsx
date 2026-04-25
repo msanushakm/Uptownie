@@ -43,13 +43,13 @@ function Navbar() {
         <div id="div3">
             <ul>
             <li className="dropdown">
+                <Link to="/">Home</Link>
+            </li>
+            <li className="dropdown">
                 <Link to="/newinCards">New In</Link>
             </li>
             <li>
                 <Link to="/lovedCards">Most Loved</Link>
-            </li>
-            <li className="dropdown">
-                <Link to="/">Clothing</Link>
             </li>
             <li className="dropdown">
                 <Link to="/shirtCards">Shirts</Link>

@@ -45,7 +45,7 @@ function ManageProduct(){
                         <td className='items-center'>{products.price}</td>
                         <td className='items-center'>{products.description}</td>
                         <td className='items-center'>{products.category}</td>
-                        <td className='items-center'><img className='tb-img' src={`${BASE_URL}/upload/${products.image}`}/></td>
+                        <td className='items-center'><img className='tb-img' src={products.image}/></td>
                         <td className='items-center'><Link to={`/updateProduct/${products._id}`}><button className="buttonss">Edit</button></Link></td>
                         <td className='items-center'><button className="buttonss" onClick={(e)=>deleteProduct(products._id)}>Delete</button></td>
                     </tr>

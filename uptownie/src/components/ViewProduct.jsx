@@ -25,7 +25,7 @@ function ViewProduct() {
       <button className="back-btn" onClick={() => navigate(-1)}>Back</button>
       <h1>{product.name}</h1>
       <img
-        src={`${BASE_URL}/upload/${product.image}`}
+        src={product.image}
         alt={product.name} className="view-img"/>
       <h2>₹{product.price}</h2>
       <p>{product.description}</p>  

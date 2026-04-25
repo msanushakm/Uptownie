@@ -50,7 +50,7 @@ function SkirtCards(){
         <div className="productContainer">
         {products.map((product)=>(        
         <div className="cardd" onClick={() => {navigate(`/productDetails/${product._id}`)}} style={{cursor:"pointer"}}>
-            <img src={`${BASE_URL}/upload/${product.image}`}/>
+            <img src={product.image}/>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <h4>₹{product.price}</h4>

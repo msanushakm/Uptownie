@@ -42,7 +42,7 @@ function ProductDetails(){
     return(
         <>
         <div className="detailsContainer">
-        <img src={`${BASE_URL}/upload/${product?.image}`} />
+        <img src={product?.image} />
         <div className="subbcontainer">
         <h2>{product?.name}</h2>
         <p>{product?.description}</p>

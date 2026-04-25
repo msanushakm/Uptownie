@@ -13,7 +13,7 @@ function ShirtCards(){
       ? "http://localhost:3001"
       : "https://uptownie.onrender.com";
     useEffect(()=>{
-    axios.get(`${BASE_URL}/products/category/shirt`)
+    axios.get(`${BASE_URL}/products/category/Shirt`)
     .then(res=>{
     setProducts(res.data)
     })
@@ -24,11 +24,11 @@ function ShirtCards(){
         const value=e.target.value;
         setSearchKey(value)
         if (value===""){
-            axios.get(`${BASE_URL}/products/category/shirt`)
+            axios.get(`${BASE_URL}/products/category/Shirt`)
             .then(res => setProducts(res.data))
         }else{
             try {
-                const res=await axios.get(`${BASE_URL}/products/search/shirt/${value}`)
+                const res=await axios.get(`${BASE_URL}/products/search/Shirt/${value}`)
                 setProducts(res.data)
             } catch (error) {
                 console.log(error)
@@ -51,7 +51,7 @@ function ShirtCards(){
         <div className="productContainer">
         {products.map((product)=>(        
         <div className="cardd" onClick={() => {navigate(`/productDetails/${product._id}`)}} style={{cursor:"pointer"}}>
-            <img src={`${BASE_URL}/upload/${product.image}`}/>
+            <img src={product.image}/>
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <h4>₹{product.price}</h4>

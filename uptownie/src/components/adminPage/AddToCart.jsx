@@ -52,7 +52,7 @@ function AddToCart({cartData}){
                 {cart.map((item,index)=>(
                     <div key={index} className="cart_card">
                     <img 
-                        src={`${BASE_URL}/upload/${item.image}`} 
+                        src={item.image} 
                         className="cart_img"/>
                     <div className="cart_details">
                         <h3>{item.name}</h3>
