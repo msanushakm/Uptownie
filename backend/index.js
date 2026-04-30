@@ -183,6 +183,7 @@ app.post("/orders", async (req, res) => {
 
     try {
       pdfBuffer = await generateInvoice(newOrder, productDetails, total);
+      console.log("PDF LENGTH:", pdfBuffer?.length);
     } catch (err) {
       console.error("PDF ERROR:", err);
     }
@@ -196,7 +197,9 @@ app.post("/orders", async (req, res) => {
         <p><b>Order ID:</b> ${newOrder._id}</p>
         <p><b>Total:</b> ₹${total}</p>
         `,
-        pdfBuffer ? { content: pdfBuffer } : null
+        pdfBuffer && pdfBuffer.length > 0
+        ? { content: pdfBuffer }
+        : null
       );
     } catch (err) {
       console.error("EMAIL ERROR:", err);
