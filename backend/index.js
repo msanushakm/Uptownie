@@ -153,7 +153,7 @@ app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
 
 async function generateInvoice(order, productDetails, total) {
   const html = `
-    <h1>Invoice</h1>
+    <h2>Invoice</h2>
     <p>Order ID: ${order._id}</p>
     <p>Payment: ${order.payment}</p>
 
