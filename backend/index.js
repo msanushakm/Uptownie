@@ -167,8 +167,14 @@ async function generateInvoice(order, productDetails, total) {
   `;
 
   const browser = await puppeteer.launch({
-    headless: "new",
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--no-zygote",
+      "--single-process"
+    ]
   });
 
   const page = await browser.newPage();
@@ -203,32 +209,40 @@ app.post("/orders", async (req, res) => {
     );
 
     let total = 0;
-    let productText = "";
     productDetails.forEach((item) => {
       total += item.price * item.quantity;
-      productText += `${item.name} (Qty: ${item.quantity})\n`;
     });
-    const pdfBuffer = await generateInvoice(newOrder, productDetails, total);
-    await sendEmail(
-    req.body.address.email,
-    "Order Confirmed",
-    `
-    <h2>Order Confirmed</h2>
-    <p><b>Order ID:</b> ${newOrder._id}</p>
-    <p><b>Total:</b> ₹${total}</p>
-    `,
-    {
-      content: pdfBuffer
+
+    let pdfBuffer = null;
+
+    try {
+      pdfBuffer = await generateInvoice(newOrder, productDetails, total);
+    } catch (err) {
+      console.error("PDF ERROR:", err);
     }
-  );
+
+    try {
+      await sendEmail(
+        req.body.address.email,
+        "Order Confirmed",
+        `
+        <h2>Order Confirmed</h2>
+        <p><b>Order ID:</b> ${newOrder._id}</p>
+        <p><b>Total:</b> ₹${total}</p>
+        `,
+        pdfBuffer ? { content: pdfBuffer } : null
+      );
+    } catch (err) {
+      console.error("EMAIL ERROR:", err);
+    }
 
     res.status(201).json({
-      message: "Order placed + invoice sent",
+      message: "Order placed successfully",
     });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to save order" });
+    console.error("FULL ERROR:", err);
+    res.status(500).json({ message: err.message });
   }
 });
 
