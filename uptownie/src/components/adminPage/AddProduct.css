@@ -1,17 +1,52 @@
-h1{
-    text-align: center;
+/* Page layout */
+.page-containerrr {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.alignment{
-    margin-left: 42%;
+
+/* Title */
+.page-container h1 {
+  margin-bottom: 20px;
 }
-.btninput{
-    width: 220px;
-    height: 30px;
+
+/* Form card */
+.form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.btnsubmit{
-    margin-left: 5%;
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
-select{
-    width: 230px;
-    height: 30px;
+
+/* File label */
+.file-label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #333;
 }

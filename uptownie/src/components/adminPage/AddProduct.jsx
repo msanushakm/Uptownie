@@ -32,73 +32,77 @@ function AddProduct(){
     navigate("/admin")
     })
     }
-    return(
-        <>
-        <h1>Enter Product Details</h1>
-        <div className='alignment'>
-        <form onSubmit={handleSubmit}>
-                <input type="text" 
-                name="name" 
-                id="name" 
-                placeholder="Enter product name" 
-                required 
-                className='btninput'
-                onChange={(e)=>setName(e.target.value)}/><br/><br/>
+    return (
+    <>
+        <div className="page-containerrr">
 
-                <input 
-                type="text" 
-                name="price" 
-                id="price" 
-                placeholder="Enter product price" 
-                required 
-                className='btninput'
-                onChange={(e)=>setPrice(e.target.value)}/><br/><br/>
+        <h1>Add Product</h1>
 
-                <input 
-                type="text" 
-                name="description" 
-                id="description" 
-                placeholder='Enter product description' 
-                required 
-                className='btninput'
-                onChange={(e)=>setDescription(e.target.value)}/><br/><br />
+        <div className="form-card">
+            <form onSubmit={handleSubmit}>
 
-                <select 
-                    name="category"
-                    className='btninput'
-                    required
-                    onChange={(e)=>setCategory(e.target.value)}>
-                    <option value="">Select Category</option>
-                    <option value="Shirt">Shirt</option>
-                    <option value="dress">dress</option>
-                    <option value="top">top</option>
-                    <option value="skirt">skirt</option>
-                    <option value="winter_wear">winter_wear</option>
-                    <option value="swim">swim</option>
-                    <option value="co_ords">co_ords</option>
-                    <option value="most_loved">most_loved</option>
-                    <option value="new_in">new_in</option>
-                    <option value="three_combo">three_combo</option>
-                    <option value="two@999">two@999</option>
-                </select><br/><br/>
+            <input
+                type="text"
+                placeholder="Enter product name"
+                required
+                className="input"
+                onChange={(e)=>setName(e.target.value)}
+            />
 
-                <p>'Below upload the product image'</p>
-                <input 
-                type="file" 
-                accept='image/*'
-                name="image" 
-                id="image"  
-                required 
-                className='btninput' 
-                onChange={(e)=>setImage(e.target.files[0])}/><br/><br/>
-                
-                <input 
-                type="submit" 
-                value="Add Product" 
-                className='btnsubmit'/>
-        </form>
+            <input
+                type="text"
+                placeholder="Enter product price"
+                required
+                className="input"
+                onChange={(e)=>setPrice(e.target.value)}
+            />
+
+            <input
+                type="text"
+                placeholder="Enter product description"
+                required
+                className="input"
+                onChange={(e)=>setDescription(e.target.value)}
+            />
+
+            <select
+                className="input"
+                required
+                onChange={(e)=>setCategory(e.target.value)}
+            >
+                <option value="">Select Category</option>
+                <option value="Shirt">Shirt</option>
+                <option value="dress">dress</option>
+                <option value="top">top</option>
+                <option value="skirt">skirt</option>
+                <option value="winter_wear">winter_wear</option>
+                <option value="swim">swim</option>
+                <option value="co_ords">co_ords</option>
+                <option value="most_loved">most_loved</option>
+                <option value="new_in">new_in</option>
+                <option value="three_combo">three_combo</option>
+                <option value="two@999">two@999</option>
+            </select>
+
+            <label className="file-label">Upload Product Image</label>
+
+            <input
+                type="file"
+                accept="image/*"
+                required
+                className="input"
+                onChange={(e)=>setImage(e.target.files[0])}
+            />
+
+            <button type="submit" className="submit-btn">
+                Add Product
+            </button>
+
+            </form>
         </div>
-        </>
-    )
+
+        </div>
+    </>
+    );
 }
 export default AddProduct;

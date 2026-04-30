@@ -11,18 +11,12 @@ const sendEmail = async (to, subject, html, attachment = null) => {
 
   let attachments = [];
 
-  if (attachment) {
-    if (attachment.path) {
-      attachments.push({
-        filename: "invoice.pdf",
-        path: attachment.path,
-      });
-    } else if (attachment.content) {
-      attachments.push({
-        filename: "invoice.pdf",
-        content: attachment.content,
-      });
-    }
+  if (attachment && attachment.content) {
+    attachments.push({
+      filename: "invoice.pdf",
+      content: attachment.content,
+      contentType: "application/pdf"
+    });
   }
 
   await transporter.sendMail({

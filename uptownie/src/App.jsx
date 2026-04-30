@@ -31,16 +31,12 @@ import ResetPassword from "./components/ResetPassword";
 import MyProfile from "./components/MyProfile";
 import MyOrders from "./components/MyOrder";
 import ViewProduct from "./components/ViewProduct";
-
+import AdminLayout from "./components/adminPage/AdminLayout";
 function Layout() {
   const location = useLocation();
 
-  const isAdminRoute =
-    location.pathname.startsWith("/admin") ||
-    location.pathname.startsWith("/addProduct") ||
-    location.pathname.startsWith("/manageProduct") ||
-    location.pathname.startsWith("/updateProduct")||
-    location.pathname.startsWith("/manageOrder");
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <>
       {!isAdminRoute && <Navbar />}
@@ -75,12 +71,18 @@ function Layout() {
   </Route>
 
   <Route element={<ProtectedRoutes adminOnly={true} />}>
-    <Route path='/admin' element={<Admin/>} />
-    <Route path='/addProduct' element={<AddProduct/>} />
-    <Route path='/manageProduct' element={<ManageProduct/>} />
-    <Route path='/manageOrder' element={<ManageOrder/>}/>
-    <Route path='/updateProduct/:id' element={<UpdateProduct/>} />
+
+  <Route path="/admin" element={<AdminLayout />}>
+
+    <Route index element={<Admin />} />
+    <Route path="addProduct" element={<AddProduct />} />
+    <Route path="manageProduct" element={<ManageProduct />} />
+    <Route path="manageOrder" element={<ManageOrder />} />
+    <Route path="updateProduct/:id" element={<UpdateProduct />} />
+
   </Route>
+
+</Route>
 </Routes>
 
       {!isAdminRoute && <Footer />}

@@ -12,6 +12,8 @@ const sendEmail = require("./utils/sendEmail");
 const Razorpay = require("razorpay");
 const PDFDocument = require("pdfkit");
 const puppeteer = require("puppeteer");
+const chromeLauncher = require("chrome-launcher");
+const generateInvoice = require("./utils/generateInvoice");
 const app=express()
 const allowedOrigins = [
   "http://localhost:5173",
@@ -150,42 +152,6 @@ app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
         console.log(err)
     }
 })
-
-async function generateInvoice(order, productDetails, total) {
-  const html = `
-    <h2>Invoice</h2>
-    <p>Order ID: ${order._id}</p>
-    <p>Payment: ${order.payment}</p>
-
-    <ul>
-      ${productDetails.map(p => `
-        <li>${p.name} - Qty: ${p.quantity} - ₹${p.price}</li>
-      `).join("")}
-    </ul>
-
-    <h3>Total: ₹${total}</h3>
-  `;
-
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--no-zygote",
-      "--single-process"
-    ]
-  });
-
-  const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: "domcontentloaded" });
-
-  const pdfBuffer = await page.pdf({ format: "A4" });
-
-  await browser.close();
-
-  return pdfBuffer;
-}
 
 app.post("/orders", async (req, res) => {
   try {
