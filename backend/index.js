@@ -11,7 +11,7 @@ const Order = require("./models/order")
 const sendEmail = require("./utils/sendEmail");
 const Razorpay = require("razorpay");
 const PDFDocument = require("pdfkit");
-
+const puppeteer = require("puppeteer");
 const app=express()
 const allowedOrigins = [
   "http://localhost:5173",
@@ -151,6 +151,36 @@ app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
     }
 })
 
+async function generateInvoice(order, productDetails, total) {
+  const html = `
+    <h1>Invoice</h1>
+    <p>Order ID: ${order._id}</p>
+    <p>Payment: ${order.payment}</p>
+
+    <ul>
+      ${productDetails.map(p => `
+        <li>${p.name} - Qty: ${p.quantity} - ₹${p.price}</li>
+      `).join("")}
+    </ul>
+
+    <h3>Total: ₹${total}</h3>
+  `;
+
+  const browser = await puppeteer.launch({
+    headless: "new",
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+
+  const page = await browser.newPage();
+  await page.setContent(html, { waitUntil: "domcontentloaded" });
+
+  const pdfBuffer = await page.pdf({ format: "A4" });
+
+  await browser.close();
+
+  return pdfBuffer;
+}
+
 app.post("/orders", async (req, res) => {
   try {
     const newOrder = new Order(req.body);
@@ -159,87 +189,41 @@ app.post("/orders", async (req, res) => {
     const productDetails = await Promise.all(
       req.body.cart.map(async (item) => {
         const product = await Product.findById(item.productId);
+
+        if (!product) {
+          throw new Error(`Product not found: ${item.productId}`);
+        }
+
         return {
           name: product.name,
-          quantity: item.quantity
+          quantity: item.quantity,
+          price: product.price
         };
       })
     );
 
-    const doc = new PDFDocument({ margin: 50 });
-    const filePath = path.join(__dirname, `invoice_${newOrder._id}.pdf`);
-    const stream = fs.createWriteStream(filePath);
-
-    doc.pipe(stream);
-
-    doc.fontSize(22).text("INVOICE", { align: "center" });
-    doc.moveDown();
-
-    doc.fontSize(12).text(`Order ID: ${newOrder._id}`);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`);
-    doc.moveDown();
-
-    doc.text(`Name: ${req.body.address.name}`);
-    doc.text(`Email: ${req.body.address.email}`);
-    doc.moveDown();
-
-    doc.fontSize(14).text("Product Details", { underline: true });
-    doc.moveDown();
-
-    let subtotal = 0;
-
-    for (const item of req.body.cart) {
-    const product = await Product.findById(item.productId);
-
-    const price = product.price;
-    const qty = item.quantity;
-    const total = price * qty;
-
-    subtotal += total;
-
-    doc.fontSize(12).text(
-        `${product.name} | Qty: ${qty} | Price: ₹${price} | Total: ₹${total}`
-    );
-    }
-
-    const gst = subtotal * 0.18; 
-    const extraTax = req.body.tax || 0; 
-    const discount = req.body.discount || 0;
-
-    const finalTotal = subtotal + gst + extraTax - discount;
-
-    doc.moveDown();
-    doc.text(`Subtotal: ₹${subtotal}`);
-    doc.text(`GST (18%): ₹${gst.toFixed(2)}`);
-
-    if (extraTax > 0) {
-    doc.text(`Other Tax: ₹${extraTax}`);
-    }
-
-    if (discount > 0) {
-    doc.text(`Discount: -₹${discount}`);
-    }
-
-    doc.fontSize(14).text(`Total: ₹${finalTotal.toFixed(2)}`, {
-    underline: true,
+    let total = 0;
+    let productText = "";
+    productDetails.forEach((item) => {
+      total += item.price * item.quantity;
+      productText += `${item.name} (Qty: ${item.quantity})\n`;
     });
+    const pdfBuffer = await generateInvoice(newOrder, productDetails, total);
+    await sendEmail(
+    req.body.address.email,
+    "Order Confirmed",
+    `
+    <h2>Order Confirmed</h2>
+    <p><b>Order ID:</b> ${newOrder._id}</p>
+    <p><b>Total:</b> ₹${total}</p>
+    `,
+    {
+      content: pdfBuffer
+    }
+  );
 
-    doc.moveDown();
-    doc.fontSize(12).text("Thank you for shopping with us!", {
-    align: "center",
-    });
-
-    doc.end();
-
-    stream.on("finish", async () => {
-      await sendEmail(
-        req.body.address.email,
-        "Order Placed",
-        `<h2>Your order is confirmed!</h2>`,
-        filePath 
-      );
-
-      res.status(201).json({ message: "Order + invoice sent" });
+    res.status(201).json({
+      message: "Order placed + invoice sent",
     });
 
   } catch (err) {
