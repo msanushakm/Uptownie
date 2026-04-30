@@ -29,19 +29,19 @@ function ImageSlideShow(){
     return(
         <div className="slideContainer">
         <Carousel responsive={responsive}>
-        <div className='card'>
+        <div className='ccard'>
             <img src={img1} alt="image1" />
         </div>
-        <div className='card'>
+        <div className='ccard'>
             <img src={img2} alt="image2" />
         </div>
-        <div className='card'>
+        <div className='ccard'>
             <img src={img3} alt="image3" />
         </div>
-        <div className='card'>
+        <div className='ccard'>
             <img src={img4} alt="image4" />
         </div>
-        <div className='card'>
+        <div className='ccard'>
             <img src={img5} alt="image5" />
         </div>
         </Carousel>
