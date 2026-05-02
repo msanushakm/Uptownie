@@ -1,0 +1,35 @@
+.contact-container {
+  background-color: #f1f1f1;
+  padding: 40px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.contact-section {
+  margin-bottom: 25px;
+}
+
+.contact-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.contact-section p {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+}
+
+.social-icons svg:hover {
+  color: #555;
+}

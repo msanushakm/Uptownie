@@ -98,8 +98,8 @@ const invoiceTemplate = (order, productDetails, total) => {
       <div class="company">
         <b>Corporate Office:</b><br/>
         Uptownie Fashion<br/>
-        3rd Floor, MG Road, Indiranagar<br/>
-        Bengaluru, Karnataka - 560038<br/>
+        6, Alipore Avenue, Kala Bagan, Alipore, 
+        Kolkata, West Bengal 700027<br/>
         India<br/>
         CIN: U74900KA2024PTC123456
       </div>
@@ -124,7 +124,7 @@ const invoiceTemplate = (order, productDetails, total) => {
         <p><b>Shipping Cost:</b> FREE</p>
         <p><b>GSTIN:</b> 29ABCDE1234F1Z5</p>
         <p><b>Support:</b> support@uptownie.com</p>
-        <p><b>Phone:</b> +91 9876543210</p>
+        <p><b>Phone:</b>+91 97118 87220</p>
       </div>
     </div>
 

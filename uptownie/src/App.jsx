@@ -32,6 +32,8 @@ import MyProfile from "./components/MyProfile";
 import MyOrders from "./components/MyOrder";
 import ViewProduct from "./components/ViewProduct";
 import AdminLayout from "./components/adminPage/AdminLayout";
+import Size from "./components/Size";
+import Contact from "./components/Contact";
 function Layout() {
   const location = useLocation();
 
@@ -48,6 +50,8 @@ function Layout() {
   <Route path='/forgotpw' element={<Password/>} />
   <Route path="/reset-password/:email" element={<ResetPassword />} />
   <Route path='/about' element={<About/>} />
+  <Route path='/size' element={<Size/>}/>
+  <Route path='/contact' element={<Contact/>}></Route>
   <Route path='/shirtCards' element={<ShirtCards/>} />
   <Route path='/skirtCards' element={<SkirtCards/>}/>
   <Route path='/dressCards' element={<DressCards/>}/>

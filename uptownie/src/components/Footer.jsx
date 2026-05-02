@@ -11,18 +11,10 @@ function Footer(){
                 <h3>Company</h3>
                     <Link className="nav-link" to="/about"><p>About Us</p></Link>
                     <Link className="nav-link" to="/size"><p>Size Chart</p></Link>
-                    <Link className="nav-link" to="/career"><p>Careers</p></Link>
-                    <Link className="nav-link" to="/blog"><p>Blog</p></Link>
-                    <Link className="nav-link" to="/myreturns"><p>My Returns</p></Link>
-                    <Link className="nav-link" to="/cap"><p>CAP</p></Link>
             </div>
             <div className="subFooter">
-                <h3>Policies</h3>
-                    <Link className="nav-link" to="/privacy"><p>Privacy Policy</p></Link>
-                    <Link className="nav-link" to="/shipping"><p>Shipping & Returns</p></Link>
-                    <Link className="nav-link" to="/payment"><p>Payment & Orders</p></Link>
-                    <Link className="nav-link" to="/contact"><p>Contact Us</p></Link>
-                    <Link className="nav-link" to="/terms"><p>Terms & Conditions</p></Link>      
+                <h3>Contact</h3>
+                    <Link className="nav-link" to="/contact"><p>Contact Us</p></Link>     
             </div>
             <div className="subFooter">
                 <h3>Get in touch</h3>
