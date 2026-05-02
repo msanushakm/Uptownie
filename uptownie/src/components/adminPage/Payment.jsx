@@ -42,7 +42,7 @@ function Payment() {
                     localStorage.removeItem("pendingOrder");
                     localStorage.removeItem(`cart_${user.email}`);
 
-                    alert("Payment Successful");
+                    alert("Payment Successfull");
                     window.location.href = "/";
                 } else {
                     alert("Payment verification failed");

@@ -1,21 +1,80 @@
-.table-border{
-    border:solid black 2px;
-    width: 95%;
+.manage-product {
+  padding: 20px;
 }
-.buttonss{
-    width:50px;
-    height: 40px;
-    border-radius: 20%;
+
+.manage-product h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
-.tb-div{
-    margin-left: 5%;
-    
+
+.table-container {
+  overflow-x: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.items-center{
-    text-align: center;
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
 }
-.tb-img{
-    object-fit: cover;
-    height: 60px;
-    width: 50px;
+
+.product-table th {
+  background: #111;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.product-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+
+.product-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.product-img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.category-tag {
+  background: #eee;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.desc {
+  max-width: 200px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 70px;
+}
+
+.btn.edit {
+  background: #a9aaac;
+  color: white;
+}
+
+.btn.delete {
+  background: rgb(55, 53, 53);
+  color: white;
 }

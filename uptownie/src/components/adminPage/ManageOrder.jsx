@@ -38,49 +38,73 @@ function ManageOrder(){
     return(
         <>
         <div className="manage-orders">
-            <h1>Manage Orders</h1>
-            <table border={2}>
-                <thead>
-                    <tr>
-                    <th>Order #</th>
-                    <th>User ID</th>
-                    <th>Products</th>
-                    <th>Total</th>
-                    <th>Address</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        orders.map((orders)=>{
-                            return <tr key={orders._id}>
-                            <td>{orders._id}</td>
-                            <td>{orders.userId}</td>
-                            <td>{orders.cart.map((item, i) => (
-                                        <div key={i}>
-                                            Product ID: {item.productId} <br /> Size: {item.size} | Qty: {item.quantity}
-                                        </div>
-                                    ))}
-                            </td>
-                            <td>{orders.total}</td>
-                            <td>{orders.address.name}  <br />
-                             {orders.address.address},{orders.address.city},{orders.address.state}-{orders.address.pincode} <br />
-                             Phone No: {orders.address.phone}
-                            </td>
-                            <td>{orders.status}</td>
-                            <td>
-                                <div>
-                                    <button className='action-btn' onClick={()=>handleStatusUpdate(orders._id,"Shipped")} id='shippedbtn'>Shipped</button> <br />
-                                    <button className='action-btn' onClick={()=>handleStatusUpdate(orders._id,"Delivered")} id='deliveredbtn'>Delivered</button> <br />
-                                    <button className='action-btn-remove' onClick={(e)=>handleActionRemove(orders._id)} id='remobebtn'>Remove</button>
-                                </div>
-                            </td>
-                        </tr>
-                        })
-                    }
-                </tbody>
+        <h1>Manage Orders</h1>
+
+        <div className="table-container">
+            <table className="order-table">
+            <thead>
+                <tr>
+                <th>Order ID</th>
+                <th>User</th>
+                <th>Products</th>
+                <th>Total</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {orders.map((order) => (
+                <tr key={order._id}>
+                    <td>{order._id.slice(-6)}</td>
+
+                    <td>{order.userId}</td>
+
+                    <td>
+                    {order.cart.map((item, i) => (
+                        <div key={i} className="product-item">
+                        <b>ID:</b> {item.productId} <br />
+                        Size: {item.size} | Qty: {item.quantity}
+                        </div>
+                    ))}
+                    </td>
+
+                    <td>₹{order.total}</td>
+
+                    <td>
+                    {order.address.name} <br />
+                    {order.address.address}, {order.address.city} <br />
+                    {order.address.state} - {order.address.pincode} <br />
+                    {order.address.phone}
+                    </td>
+
+                    <td>
+                    <span className={`status ${order.status?.toLowerCase()}`}>
+                        {order.status}
+                    </span>
+                    </td>
+
+                    <td>
+                    <div className="actions">
+                        <button onClick={() => handleStatusUpdate(order._id, "Shipped")} className="btn shipped">
+                        Shipped
+                        </button>
+
+                        <button onClick={() => handleStatusUpdate(order._id, "Delivered")} className="btn delivered">
+                        Delivered
+                        </button>
+
+                        <button onClick={() => handleActionRemove(order._id)} className="btn remove">
+                        Remove
+                        </button>
+                    </div>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
             </table>
+        </div>
         </div>
         </>
     )

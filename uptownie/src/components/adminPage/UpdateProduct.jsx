@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
+import './AddProduct.css'
 function UpdateProduct(){
     const {id}=useParams();
     const[product, setProduct]=useState({
@@ -40,7 +41,7 @@ function UpdateProduct(){
             formData.append("image", product.image)
 
             try {
-                await axios.put(`${BASE_URL}/updateProduct/${id}`, formData, {
+                await axios.put(`${BASE_URL}/admin/updateProduct/${id}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 });
 
@@ -52,13 +53,14 @@ function UpdateProduct(){
             }
     return(
         <>
+        <div className="page-containerrr">
         <h1>Edit Product</h1> 
-        <div className='alignment'>
+        <div className='form-card'>
         <form onSubmit={handleUpdate}>
                 <input type="text" 
                 name="name" 
                 id="name" 
-                className='btninput'
+                className='input'
                 value={product.name}
                 onChange={handleChange}/><br/><br/>
 
@@ -66,7 +68,7 @@ function UpdateProduct(){
                 type="text" 
                 name="price" 
                 id="price" 
-                className='btninput'
+                className='input'
                 value={product.price}
                 onChange={handleChange}/><br/><br/>
 
@@ -74,24 +76,25 @@ function UpdateProduct(){
                 type="text" 
                 name="description" 
                 id="description" 
-                className='btninput'
+                className='input'
                 value={product.description}
                 onChange={handleChange}/><br/>
 
-                <p>'Below upload the product image'</p>
+                <label className="file-label">Upload Product Image</label>
                 <input 
                 type="file" 
                 accept='image/*'
                 name="image" 
                 id="image"  
-                className='btninput' 
+                className='input' 
                 onChange={handleImage}/><br/><br/>
                 
                 <input 
                 type="submit" 
                 value="Edit Product" 
-                className='btnsubmit'/>
+                className='submit-btn'/>
         </form>
+        </div>
         </div>
         </>
     )

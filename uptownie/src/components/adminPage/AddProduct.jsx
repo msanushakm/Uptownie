@@ -11,9 +11,9 @@ function AddProduct(){
     const[image,setImage]=useState(null);
     const navigate = useNavigate();
     const BASE_URL =
-  window.location.hostname === "localhost"
-      ? "http://localhost:3001"
-      : "https://uptownie.onrender.com";
+    window.location.hostname === "localhost"
+        ? "http://localhost:3001"
+        : "https://uptownie.onrender.com";
     const handleSubmit=(e)=>{
     e.preventDefault()
 

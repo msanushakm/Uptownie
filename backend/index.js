@@ -105,6 +105,11 @@ app.get("/products", async(req,res)=>{
     res.json(products)
 })
 
+app.get("/users",async(req,res)=>{
+  const users=await UptownieModel.find()
+  res.json(users)
+})
+
 app.get("/products/category/:category", async (req, res) => {
     try {
         const products = await Product.find({ category: req.params.category })
@@ -135,7 +140,7 @@ app.get("/products/:id", async (req, res) => {
     }
 })
 
-app.put('/updateProduct/:id',upload.single('image'),async(req,res)=>{
+app.put('/admin/updateProduct/:id',upload.single('image'),async(req,res)=>{
     try{
         const {name,price,description}=req.body;
         const updateData={name,price,description};
