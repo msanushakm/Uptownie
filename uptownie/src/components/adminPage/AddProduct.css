@@ -1,4 +1,3 @@
-/* Page layout */
 .page-containerrr {
   padding: 30px;
   display: flex;
@@ -6,12 +5,10 @@
   align-items: center;
 }
 
-/* Title */
 .page-container h1 {
   margin-bottom: 20px;
 }
 
-/* Form card */
 .form-card {
   background: white;
   padding: 30px;
@@ -20,7 +17,6 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Inputs */
 .input {
   width: 100%;
   padding: 10px;
@@ -29,14 +25,12 @@
   border-radius: 6px;
 }
 
-/* File label */
 .file-label {
   font-size: 13px;
   margin-bottom: 5px;
   display: block;
 }
 
-/* Button */
 .submit-btn {
   width: 100%;
   padding: 10px;
