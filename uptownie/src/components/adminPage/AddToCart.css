@@ -9,6 +9,9 @@
     text-align: center;
     margin-bottom: 20px;
 }
+.cart_section h2{
+    text-align: center;
+}
 .cart_card {
     display: flex;
     gap: 20px;

@@ -47,36 +47,61 @@ function AddToCart({cartData}){
     return(
         <>
         <div className="cart_section">
-            <h1>Your List</h1>
-            <div className="cart_list">
-                {cart.map((item,index)=>(
-                    <div key={index} className="cart_card">
-                    <img 
-                        src={item.image} 
-                        className="cart_img"/>
-                    <div className="cart_details">
-                        <h3>{item.name}</h3>
-                        <p>
-                        Size: {item.size} | Qty: {item.quantity} | ₹{item.price}
-                        </p>
-                        <button onClick={()=>delItem(index)} className="remove_btn">
-                        Remove
-                        </button>
+
+            {cart.length === 0 ? (
+                <h2>Cart is Empty</h2>
+            ) : (
+                <>
+                    <h1>Your List</h1>
+
+                    <div className="cart_list">
+                        {cart.map((item,index)=>(
+                            <div key={index} className="cart_card">
+                                <img 
+                                    src={item.image} 
+                                    className="cart_img"
+                                />
+
+                                <div className="cart_details">
+                                    <h3>{item.name}</h3>
+
+                                    <p>
+                                        Size: {item.size} | Qty: {item.quantity} | ₹{item.price}
+                                    </p>
+
+                                    <button 
+                                        onClick={()=>delItem(index)} 
+                                        className="remove_btn"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
+
+                    <div className="cart_summary">
+                        <h3>Total: ₹{calculatedTotal()}</h3>
                     </div>
-                ))}
-            </div>
-            <div className="cart_summary">
-            <h3>Total: ₹{calculatedTotal()}</h3>
-            </div>
-            <div className="cart-btns">
-                <div className="clear-all">
-                    <button onClick={()=>clearAll()}>Clear All</button>
-                </div>
-                <div className="checkout">
-                    <Link to='/checkout'><button>Checkout</button></Link>
-                </div>
-            </div>
+
+                    <div className="cart-btns">
+
+                        <div className="clear-all">
+                            <button onClick={()=>clearAll()}>
+                                Clear All
+                            </button>
+                        </div>
+
+                        <div className="checkout">
+                            <Link to='/checkout'>
+                                <button>Checkout</button>
+                            </Link>
+                        </div>
+
+                    </div>
+                </>
+            )}
+
         </div>
         </>
     )
