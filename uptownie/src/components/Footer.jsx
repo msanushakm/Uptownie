@@ -21,11 +21,11 @@ function Footer(){
                     <p>080 6863 5857</p> 
                     <p>customerservice@uptownie101.com</p>
                     <div className="div-iconlink">
-                    <div><Link ><p><FaPinterest/></p></Link></div>
-                    <div><Link ><p><FaFacebook/></p></Link></div>
-                    <div><Link ><p><FaInstagram/></p></Link></div>
-                    <div><Link ><p><FaSnapchat/></p></Link></div>
-                    <div><Link ><p><FaYoutube/></p></Link></div>
+                    <div><Link to="https://in.pinterest.com/uptownie101/"><p><FaPinterest/></p></Link></div>
+                    <div><Link to="https://www.facebook.com/uptownie"><p><FaFacebook/></p></Link></div>
+                    <div><Link to="https://www.instagram.com/uptownie101/"><p><FaInstagram/></p></Link></div>
+                    <div><Link to="https://www.snapchat.com/@uptownie.101"><p><FaSnapchat/></p></Link></div>
+                    <div><Link to="https://www.youtube.com/channel/UCAf6wFHps2YHEJcXKVrRy_Q"><p><FaYoutube/></p></Link></div>
                     </div>
             </div>
         </div>
