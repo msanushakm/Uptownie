@@ -3,12 +3,13 @@ import axios from "axios";
 
 function Payment() {
     const user = JSON.parse(localStorage.getItem("user"));
+     const order = JSON.parse(localStorage.getItem("pendingOrder"));
     const BASE_URL =
     window.location.hostname === "localhost"
       ? "http://localhost:3001"
       : "https://uptownie.onrender.com";
     const handlePayment = async () => {
-        const order = JSON.parse(localStorage.getItem("pendingOrder"));
+       
 
         if (!order) {
             alert("No order found");
@@ -56,10 +57,10 @@ function Payment() {
 
     return (
         <div className="payment_container">
-            <h2>Online Payment</h2>
-            
+            <h2>Payment with Razorpay</h2>
+
             <button onClick={handlePayment} className="pay_btn">
-                Pay Now
+                Pay ₹{order?.total}
             </button>
         </div>
     );
