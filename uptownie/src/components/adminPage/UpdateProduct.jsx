@@ -46,7 +46,7 @@ function UpdateProduct(){
                 });
 
                 alert("Product updated successfully");
-                navigate("/manageProduct");
+                navigate("/admin/manageProduct");
             } catch (error) {
                 console.log(error);
             }
