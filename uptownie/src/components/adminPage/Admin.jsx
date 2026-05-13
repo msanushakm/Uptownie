@@ -134,7 +134,7 @@ const paymentData = [
 
         <div className="card">
           <h3>Total Revenue</h3>
-          <p>₹{revenue}</p>
+          <p>₹{revenue.toFixed(2)}</p>
         </div>
 
         <div className="card">

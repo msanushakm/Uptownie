@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 function Contact() {
   return (
+    <>
+    <h1>Contact us</h1>
     <div className="contact-container">
       
       <div className="contact-section">
@@ -31,6 +33,7 @@ function Contact() {
       </div>
 
     </div>
+    </>
   );
 }
 

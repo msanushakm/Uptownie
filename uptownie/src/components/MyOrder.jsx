@@ -55,7 +55,7 @@ function MyOrders(){
                                     </div>
                                 ))}
                                 </td>
-                            <td>{orders.total}</td>
+                            <td>{orders.total.toFixed(2)}</td>
                             <td>{orders.address.name}  <br />
                              {orders.address.address},{orders.address.city},{orders.address.state}-{orders.address.pincode} <br />
                              Phone No: {orders.address.phone}
