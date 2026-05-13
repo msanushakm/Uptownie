@@ -1,8 +1,8 @@
 const invoiceTemplate = (order, productDetails, total) => {
 
-  const subtotal = total;
-  const gst = subtotal * 0.18;
-  const grandTotal = subtotal + gst;
+  const grandTotal = total;
+  const taxableSubtotal = grandTotal / 1.18;
+  const gst = grandTotal - taxableSubtotal;
 
   return `
   <html>
@@ -147,27 +147,29 @@ const invoiceTemplate = (order, productDetails, total) => {
       </tr>
 
       ${productDetails.map(item => {
-        const base = item.price / 1.18;
-        const cgst = base * 0.09;
-        const sgst = base * 0.09;
 
-        return `
-          <tr>
-            <td>${item.name}</td>
-            <td>${item.quantity}</td>
-            <td>₹${item.price}</td>
-            <td>₹${base.toFixed(2)}</td>
-            <td>₹${cgst.toFixed(2)}</td>
-            <td>₹${sgst.toFixed(2)}</td>
-            <td>₹${(item.price * item.quantity).toFixed(2)}</td>
-          </tr>
-        `;
-      }).join("")}
+      const totalPrice = item.price * item.quantity;
+      const base = totalPrice / 1.18;
+      const cgst = base * 0.09;
+      const sgst = base * 0.09;
+
+      return `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>₹${item.price}</td>
+          <td>₹${base.toFixed(2)}</td>
+          <td>₹${cgst.toFixed(2)}</td>
+          <td>₹${sgst.toFixed(2)}</td>
+          <td>₹${totalPrice.toFixed(2)}</td>
+        </tr>
+      `;
+    }).join("")}
     </table>
 
     <div class="totals">
-      <p>Taxable Subtotal: ₹${subtotal.toFixed(2)}</p>
-      <p>Total Tax (GST 18%): ₹${gst.toFixed(2)}</p>
+    <p>Taxable Subtotal: ₹${taxableSubtotal.toFixed(2)}</p>
+    <p>Total Tax (GST 18%): ₹${gst.toFixed(2)}</p>
       <p>Shipping: FREE</p>
 
       <div class="grand">

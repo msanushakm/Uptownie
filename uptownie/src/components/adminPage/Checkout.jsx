@@ -11,9 +11,9 @@ function Checkout(){
   window.location.hostname === "localhost"
       ? "http://localhost:3001"
       : "https://uptownie.onrender.com";
+
     useEffect(() => {
         const cartData = JSON.parse(localStorage.getItem(`cart_${user?.email}`) || "[]");
-
         axios.get(`${BASE_URL}/products`)
             .then(res => {
                 const updatedCart = cartData.map(item => {
@@ -29,11 +29,16 @@ function Checkout(){
             .catch(err => console.log(err));
     }, []);
 
-    const total = cart.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.quantity),0);
-    
+    const subtotal = cart.reduce(
+        (sum, item) =>
+            sum + Number(item.price || 0) * Number(item.quantity),
+        0
+    );
+    const gst = subtotal * 0.18;
+    const total = subtotal + gst;
+
     const placeOrder = async () => {
         const cartData = JSON.parse(localStorage.getItem(`cart_${user?.email}`) || "[]");
-
         const address = {
             name: document.getElementById("fullname").value,
             email: document.getElementById("email").value,
@@ -103,7 +108,12 @@ function Checkout(){
                     </div>
                 ))}
                 <hr />
-                <h4>Total: ₹{total}</h4>
+                <div className="bill_details">
+                    <p>Subtotal: ₹{subtotal.toFixed(2)}</p>
+                    <p>GST (18%): ₹{gst.toFixed(2)}</p>
+                </div>
+                <hr />
+                <h4>Total: ₹{total.toFixed(2)}</h4>
                 <hr />
                 <div className='payment'>
                 <h4>Payment Method</h4>

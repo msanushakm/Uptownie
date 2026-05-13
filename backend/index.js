@@ -179,10 +179,14 @@ app.post("/orders", async (req, res) => {
       })
     );
 
-    let total = 0;
+    let subtotal = 0;
+
     productDetails.forEach((item) => {
-      total += item.price * item.quantity;
+      subtotal += item.price * item.quantity;
     });
+
+    const gst = subtotal * 0.18;
+    const total = subtotal + gst;
 
     let pdfBuffer = null;
 
@@ -199,8 +203,9 @@ app.post("/orders", async (req, res) => {
         "Order Confirmed",
         `
         <h2>Order Confirmed</h2>
-        <p><b>Order ID:</b> ${newOrder._id}</p>
-        <p><b>Total:</b> ₹${total}</p>
+        <p><b>Subtotal:</b> ₹${subtotal.toFixed(2)}</p>
+        <p><b>GST (18%):</b> ₹${gst.toFixed(2)}</p>
+        <p><b>Total:</b> ₹${total.toFixed(2)}</p>
         `,
         pdfBuffer && pdfBuffer.length > 0
         ? { content: pdfBuffer }

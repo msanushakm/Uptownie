@@ -8,18 +8,15 @@ function Payment() {
     window.location.hostname === "localhost"
       ? "http://localhost:3001"
       : "https://uptownie.onrender.com";
-    const handlePayment = async () => {
-       
 
+    const handlePayment = async () => {
         if (!order) {
             alert("No order found");
             return;
         }
-
         const res = await axios.post(`${BASE_URL}/create-order`, {
             amount: order.total
         });
-
         const options = {
             key: "rzp_test_SYtv6pmcprXecm",
             amount: res.data.amount,
@@ -33,7 +30,6 @@ function Payment() {
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_signature: response.razorpay_signature
                 });
-
                 if (verifyRes.data.status === "success") {
                     order.status = "Confirmed";
                     order.payment = "Online";
@@ -50,7 +46,6 @@ function Payment() {
                 }
             }
         };
-
         const rzp = new window.Razorpay(options);
         rzp.open();
     };
